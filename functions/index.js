@@ -42,8 +42,8 @@ app.post("/login", async (request, response) => {
     console.info("existing user id#", user.id);
     return response.status(200).json(user);
   } else {
-    const user = {id: body.id, name: body.name, email: body.email, created};
-    const [data, err] = await handle(addToCollection("users", user));
+    const newUser = {id: body.id, name: body.name, email: body.email, created};
+    const [data, err] = await handle(addToCollection("users", newUser));
 
     console.info("Document: ", data, "Error: ", err);
 

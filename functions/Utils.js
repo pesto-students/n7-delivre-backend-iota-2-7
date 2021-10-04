@@ -1,8 +1,7 @@
 const {db} = require("./Config");
 
 const readData = async (collectionName) => {
-  const snapshot = await db.collection(collectionName).get();
-  return snapshot;
+  return db.collection(collectionName).get();
 };
 
 const isExistingUser = async (id, collectionName) => {
@@ -36,7 +35,6 @@ const updateToCollection = async (collectionName, data) => {
       .collection(collectionName)
       .where("id", "==", data.id)
       .get();
-  // console.log("SnapShot", snapshot);
   if (snapshot.empty) {
     console.log("No matching documents.");
     return response;
