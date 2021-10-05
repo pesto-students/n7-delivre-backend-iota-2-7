@@ -7,29 +7,9 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  build:
+  deploy:
     environment: production_environment
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: install dependencies
-      run: cd functions/ && npm install
-    - name: create config json
-      uses: jsdaniell/create-json@1.1.2
-      with:
-        name: 'config.json'
-        json: '${{ secrets.SERVICE_ACCOUNT }}'
-        dir: 'functions/'
-    
-  deploy:
-    name: Deploy
     env:
       FIREBASE_APP_API_KEY: ${{ secrets.FIREBASE_APP_API_KEY }}
       FIREBASE_APP_AUTH_DOMAIN: ${{ secrets.FIREBASE_APP_AUTH_DOMAIN }}
@@ -40,8 +20,24 @@ jobs:
       STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
       SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
       SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: install dependencies
+        # navigates to your functions folder and install the dependencies
+      run: cd functions/ && npm install
+    - name: create config json
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: 'config.json'
+        json: '${{ secrets.SERVICE_ACCOUNT }}'
+        dir: 'functions/'
     - name: Deploy to firebase
       uses: w9jds/firebase-action@master
       with:
