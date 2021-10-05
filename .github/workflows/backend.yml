@@ -40,6 +40,7 @@ jobs:
       SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Deploy to firebase
       uses: w9jds/firebase-action@master
       with:
