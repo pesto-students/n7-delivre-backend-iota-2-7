@@ -18,8 +18,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: install dependencies
-      run: cd functions/ && npm install && cd ..
     - name: create config json
       uses: jsdaniell/create-json@1.1.2
       with:
