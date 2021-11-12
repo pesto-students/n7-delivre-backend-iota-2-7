@@ -7,7 +7,10 @@ Go to this url for live access [Delivre App](https://delivre-6843b.web.app).
 
 ## Tech Stack 
 
-Follow this to know about tech stack [Tech Stack](https://iota-2.atlassian.net/wiki/spaces/PESTON7IOT/pages/557067/Tech+Stack+-+D+E+L+I+V+R+E)
+1. `Node JS`
+2. `Express JS`
+3. `Cloud Functions`
+4. `Firestore`
 
 ## Product Requirement Document
 
